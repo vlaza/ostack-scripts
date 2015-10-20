@@ -5,7 +5,7 @@
 #
 
 # Detecting if VM was rebooted in the last 3 minutes
-touch /root/update-glance-image.log
+touch /root/img-update.log
 reboot_time=$(uptime | awk '{print $3}')
 if [ $reboot_time -ge 3 ] 
 then
