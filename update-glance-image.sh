@@ -9,6 +9,9 @@ touch /root/img-update.log
 reboot_time=$(uptime | awk '{print $3}')
 if [ $reboot_time -ge 3 ] 
 then
+    echo "Checking disk space before!"
+    df
+
     echo "Updating openstack repositories.."
     pushd /opt/stack
     time for i in `ls`; do cd $i ; git pull ; cd .. ; done
@@ -48,14 +51,8 @@ else
 
     echo "Cleaning up logs.."
     pushd /var/log
-#    for i in `ls`; do echo "" > $i; done
-#    find . -type f -iname *.gz -exec rm -fv {} \;
-#    find . -type f -iname dmesg.0 -exec rm -fv {} \;
     find . -type f -exec rm -fv {} \;
     popd
-
-    echo "Zero-filling any free space.."
-    cat /dev/zero > /root/zerofile ; sync ; rm -f /root/zerofile
 
     echo "Removing this script from crontab.."
     sed -i "s'@reboot root /root/update-glance-image.sh >> /root/img-update.log'#@reboot root /root/update-glance-image.sh >> /root/img-update.log'g" /etc/crontab
@@ -63,4 +60,10 @@ else
     echo "Cleaning up history.."
     history -c # for root
     rm -f /home/ubuntu/.bash_history # for ubuntu user
+
+    echo "Checking disk space after!"
+    df
+
+    echo "Zero-filling any free space.."
+    cat /dev/zero > /root/zerofile && sync && rm -f /root/zerofile
 fi
