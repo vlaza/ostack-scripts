@@ -48,9 +48,10 @@ else
 
     echo "Cleaning up logs.."
     pushd /var/log
-    for i in `ls`; do echo "" > $i; done
-    find . -type f -iname *.gz -exec rm -fv {} \;
-    find . -type f -iname dmesg.0 -exec rm -fv {} \;
+#    for i in `ls`; do echo "" > $i; done
+#    find . -type f -iname *.gz -exec rm -fv {} \;
+#    find . -type f -iname dmesg.0 -exec rm -fv {} \;
+    find . -type f -exec rm -fv {} \;
     popd
 
     echo "Zero-filling any free space.."
