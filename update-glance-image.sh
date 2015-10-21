@@ -56,7 +56,7 @@ else
     popd
 
     echo "Removing this script from crontab.."
-    sed -i "s'@reboot root /root/update-glance-image.sh >> /root/img-update.log'#@reboot root /root/update-glance-image.sh >> /root/img-update.log'g" /etc/crontab
+    sed -i "s'@reboot root /root/update-glance-image.sh >> /root/img-update.log'#'g" /etc/crontab
 
     echo "Cleaning up history.."
     rm -f /root/.bash_history # for root
