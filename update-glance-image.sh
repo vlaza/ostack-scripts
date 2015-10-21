@@ -66,5 +66,5 @@ else
 
     echo "Zero-filling any free space.."
     cat /dev/zero > /root/zerofile; sync; rm -rfv /root/zerofile
-    echo Zefo-fill done!"
+    echo "Zero-fill done!"
 fi
