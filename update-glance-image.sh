@@ -28,7 +28,7 @@ then
     time aptitude safe-upgrade -y
 
     echo "Adding this script in crontab @reboot"
-    echo "@reboot root /root/update-glance-image.sh >> /run/img-update.log" >> /etc/crontab
+    echo "@reboot root /root/update-glance-image.sh >> /root/img-update.log" >> /etc/crontab
 
     echo "Rebooting for stage 2"
     reboot
@@ -55,7 +55,7 @@ else
     popd
 
     echo "Removing this script from crontab.."
-    sed -i "s'@reboot root /root/update-glance-image.sh >> /run/img-update.log'#@reboot root /root/update-glance-image.sh >> /run/img-update.log'g" /etc/crontab
+    sed -i "s'@reboot root /root/update-glance-image.sh >> /root/img-update.log'#@reboot root /root/update-glance-image.sh >> /root/img-update.log'g" /etc/crontab
 
     echo "Cleaning up history.."
     rm -f /root/.bash_history # for root
@@ -64,8 +64,6 @@ else
     echo "Checking disk space after!"
     df
 
-    echo "Zero-filling any free space.."
-    cat /dev/zero > /root/zerofile; sync; rm -rf /root/zerofile
-    echo "Zero-fill done!"
-    cat /run/img-update.log >> /root/img-update.log && rm -f /run/img-update.log
+    echo "Zero-filling any free space must be done manually by running:"
+    echo "cat /dev/zero > /root/zerofile; sync; rm -rf /root/zerofile"
 fi
