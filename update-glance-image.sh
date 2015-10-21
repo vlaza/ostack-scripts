@@ -1,8 +1,9 @@
 #!/bin/bash
 #
-#
-#
-#
+# 2015 (c) Victor Laza @ CloudBase Solutions
+# 
+# This script takes the standard CloudBase Devstack Glance image and updates it
+# and optimizes disk space at the end
 
 # Detecting if VM was rebooted in the last 3 minutes
 touch /root/img-update.log
@@ -66,4 +67,6 @@ else
 
     echo "Zero-filling any free space must be done manually by running:"
     echo "cat /dev/zero > /root/zerofile; sync; rm -rf /root/zerofile"
+    echo "Don't forget also to: history -c && shutdown -h now"
+    echo "After instance is stopped: nova image-create <instance name or uuid> <name of new image>"
 fi
